@@ -3,13 +3,13 @@ using namespace std;
 
 pair<int, int> maxSumSubarray(vector<int> &nums){
     int n = nums.size();
-    int start = 0, end = 0;
+    int start = 0, end = -1;
     pair<int, pair<int,int>> maxi; // To map sum and array index
-    maxi.first = nums[0];
+    maxi.first = INT_MIN;
     maxi.second.first = start;
     maxi.second.second = end;
-    int curr = nums[0];
-    for(int i = 1; i<n; i++){
+    int curr = 0;
+    for(int i = 0; i<n; i++){
         curr += nums[i];
         end++;
         if(curr > maxi.first){
@@ -19,7 +19,7 @@ pair<int, int> maxSumSubarray(vector<int> &nums){
         }
         if(curr < 0){
             curr = 0;
-            start = i;
+            start = i+1;
             end = i;
         }
     }
@@ -27,7 +27,7 @@ pair<int, int> maxSumSubarray(vector<int> &nums){
 }
 
 int main() {
-    vector<int> nums = {-2, 3, -3,-7, 7, -2 ,15, -10, -4};
+    vector<int> nums = {-2, 3, 5, -2, 7, -4};
     pair<int,int> ans = maxSumSubarray(nums);
     cout << "Maximum Sum Sub Array\n";
     for (int i = ans.first; i <= ans.second; i++){
